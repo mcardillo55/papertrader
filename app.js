@@ -44,7 +44,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //passport config
 var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password'
+  }, Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
@@ -56,12 +59,6 @@ app.use('/users', users);
 app.use('/login', login);
 app.use('/register', register);
 app.use('/logout', logout);
-
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',
-                                   failureFlash: true })
-);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

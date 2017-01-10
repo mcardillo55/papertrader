@@ -3,10 +3,10 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var Account = new Schema({
-    username: String,
+    email: String,
     password: String
 });
 
-Account.plugin(passportLocalMongoose);
+Account.plugin(passportLocalMongoose, {usernameField: 'email'});
 
 module.exports = mongoose.model('Account', Account);
