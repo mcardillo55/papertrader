@@ -2,3 +2,6 @@ extends layout
 
 block content
   h1 Portfolios Page
+  a(href="/portfolios/new") New Portfolio
+  for portfolio in user.portfolios
+    p= portfolio.name

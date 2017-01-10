@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1 Create A New Portfolio
+  form(action="/portfolios/new", method="post")
+    label Name:
+    input(type="text", name="name")
+    - var n = 0
+    ul
+      while n < 5
+        li
+          label Ticker:
+          input(type="text", name="stocks")
+        - n++
+    input(type="submit", value="Submit")

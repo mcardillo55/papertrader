@@ -1,10 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
+var Portfolio = require('./portfolio');
 
 var Account = new Schema({
     email: String,
-    password: String
+    password: String,
+    portfolios: [Portfolio]
 });
 
 Account.plugin(passportLocalMongoose, {usernameField: 'email'});
