@@ -7,4 +7,8 @@ block content
     a(href="/register") Register
   if (user)
     p You are currently logged in as #{user.email}
-    a(href="/logout") Logout
+    ul
+     li
+      a(href="/portfolios") My Portfolios
+     li
+      a(href="/logout") Logout
