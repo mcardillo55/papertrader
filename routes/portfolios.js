@@ -3,6 +3,7 @@ var passport = require('passport');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 var router = express.Router();
 var Portfolio = require('../models/portfolio').Portfolio;
+var Hashids = require('hashids');
 
 /* GET portfolios page. */
 router.get('/', ensureLoggedIn('/login'), function(req, res, next) {
@@ -20,7 +21,11 @@ router.post('/new', ensureLoggedIn('/login'), function(req, res, next) {
       initialStocks.push(req.body.stocks[stock]);
     }
   }
-  var newPortfolio = { name: req.body.name, stocks: initialStocks };
+  var hashids = new Hashids(req.body.name);
+  var hash = hashids.encodeHex(req.user.id);
+  var newPortfolio = { name: req.body.name,
+                       hashid: hash,
+                       stocks: initialStocks };
   req.user.portfolios.push(newPortfolio);
   req.user.save();
   res.redirect('/portfolios');
