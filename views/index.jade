@@ -12,3 +12,8 @@ block content
       a(href="/portfolios") My Portfolios
      li
       a(href="/logout") Logout
+  h3 Recent Portfolios
+  ul
+    for portfolio in portfolios
+      li
+        a(href="/portfolios/view?id=" + portfolio.hashid)=portfolio.name
