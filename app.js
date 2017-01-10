@@ -12,6 +12,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var index = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
+var register = require('./routes/register');
+var logout = require('./routes/logout');
 
 var app = express();
 
@@ -52,6 +54,8 @@ mongoose.connect('mongodb://localhost/passport-test');
 app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);
+app.use('/register', register);
+app.use('/logout', logout);
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
