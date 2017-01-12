@@ -15,7 +15,7 @@ var getPrice = function(symbol) {
 
 }
 
-mongoose.connect('mongodb://localhost/stock-prices');
+mongoose.connect('mongodb://localhost/passport-test');
 var stocks = Stock.find({}).select('ticker').exec(function (err, stocks) {
   for (var idx=0; idx < stocks.length; idx++) {
     getPrice(stocks[idx].ticker);
