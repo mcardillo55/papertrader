@@ -18,7 +18,9 @@ router.post('/new', ensureLoggedIn('/login'), function(req, res, next) {
   var initialStocks = [];
   for (var stock in req.body.stocks) {
     if(req.body.stocks[stock]) {
-      initialStocks.push(req.body.stocks[stock]);
+      initialStocks.push( { ticker: req.body.stocks[stock],
+                            quantity: req.body.qty[stock]
+                          });
     }
   }
   var hashids = new Hashids(req.body.name);
@@ -34,6 +36,7 @@ router.post('/new', ensureLoggedIn('/login'), function(req, res, next) {
 router.get('/view', function(req, res, next) {
   var hashid = req.query.id;
   Account.findOne({}).where('portfolios.hashid').equals(hashid).select('portfolios.$').exec( function(err, portfolio) {
+    console.log(portfolio.portfolios[0].stocks);
     var stocks = portfolio.portfolios[0].stocks;
     res.render('viewPortfolio', { user : req.user, stocks : stocks });
   });
